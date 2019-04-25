@@ -1,0 +1,36 @@
+{{!-- <p>Product: {{model.[10].ProductName}}</p>
+<p>Dimension: {{#link-to "production.dimension" model.[10].DimensionID}}{{model.[10].DimensionName}}{{/link-to}}</p>
+<p>Boards: {{model.[10].BoardsSum}}</p>
+<p>BoardFeet: {{model.[10].BoardFeetSum}}</p> --}}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Boards</th>
+      <th>Board Feet</th>
+      <th>{{fa-icon 'cogs'}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>All Dimensions</td>
+      <td>{{total_boards}}</td>
+      <td>{{format-number total_boardfeet precision=2}}</td>
+      <td></td>
+    </tr>
+    {{#each model as |row|}}
+      {{!-- <tr class="{{if (gt row.BoardsSum 10) "" "zero"}}"> --}}
+      <tr class="{{row-class row}}">
+        <td>
+          {{#link-to "production.dimension" row.DimensionID}}
+            {{row.DimensionName}}
+          {{/link-to}}
+        </td>
+        <td class="quantity">{{row.boards}}</td>
+        <td class="quantity">{{format-number row.boardfeet precision=2}}</td>
+        <td><input type="checkbox" disabled={{eq row.boards 0}}></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
